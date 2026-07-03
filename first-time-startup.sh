@@ -12,5 +12,5 @@ echo ""
 echo "When you have those, hit any key to continue."
 read -n1
 chmod +x ./scripts/*
-./scripts/build-boot.sh
+make all
 ./bin/devstudio
