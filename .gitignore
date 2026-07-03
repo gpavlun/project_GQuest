@@ -1,0 +1,17 @@
+# Build output
+build/
+bin/
+
+# Object files
+*.o
+*.d
+
+# Executables
+*.grg
+
+# IDE/editor stuff
+.vscode/
+.idea/
+
+# OS junk
+.DS_Store
