@@ -92,24 +92,24 @@ game: $(GAME_OBJS) $(LOGGING_OBJS) $(SHARED_OBJS)
 	@$(ECHO) ""
 	@$(ECHO) "$(CYAN)== Building Game ========================$(RESET)"
 	@mkdir -p $(BIN_DIR)
-	@$(ECHO) "$(GREEN)[LD]$(RESET) $(BIN_DIR)/game"
-	@$(CC) $^ $(SDL_LIBS) -o $(BIN_DIR)/game
+	@$(ECHO) "$(GREEN)[LD]$(RESET) $(BIN_DIR)/game.grg"
+	@$(CC) $^ $(SDL_LIBS) -o $(BIN_DIR)/game.grg
 	@$(ECHO) "$(GREEN)✓ Game build complete.$(RESET)"
 
 editor: $(EDITOR_OBJS) $(LOGGING_OBJS) $(SHARED_OBJS)
 	@$(ECHO) ""
 	@$(ECHO) "$(CYAN)== Building Editor ======================$(RESET)"
 	@mkdir -p $(BIN_DIR)
-	@$(ECHO) "$(GREEN)[LD]$(RESET) $(BIN_DIR)/editor"
-	@$(CC) $^ $(SDL_LIBS) -o $(BIN_DIR)/editor
+	@$(ECHO) "$(GREEN)[LD]$(RESET) $(BIN_DIR)/editor.grg"
+	@$(CC) $^ $(SDL_LIBS) -o $(BIN_DIR)/editor.grg
 	@$(ECHO) "$(GREEN)✓ Editor build complete.$(RESET)"
 
 devstudio: $(DEVSTUDIO_OBJS) $(LOGGING_OBJS) $(SHARED_OBJS)
 	@$(ECHO) ""
 	@$(ECHO) "$(CYAN)== Building DevStudio ===================$(RESET)"
 	@mkdir -p $(BIN_DIR)
-	@$(ECHO) "$(GREEN)[LD]$(RESET) $(BIN_DIR)/devstudio"
-	@$(CC) $^ -o $(BIN_DIR)/devstudio
+	@$(ECHO) "$(GREEN)[LD]$(RESET) $(BIN_DIR)/devstudio.grg"
+	@$(CC) $^ -o $(BIN_DIR)/devstudio.grg
 	@$(ECHO) "$(GREEN)✓ DevStudio build complete.$(RESET)"
 
 # -------------------------------------------------------
