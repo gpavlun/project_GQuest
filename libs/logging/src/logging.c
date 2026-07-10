@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "logging/logging.h"
+#include "logging.h"
 
 logging_t logging = {
     .info = info,

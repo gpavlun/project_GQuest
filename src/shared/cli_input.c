@@ -1,4 +1,4 @@
-#include "shared/shared.h"
+#include "shared.h"
 
 int input_int(int *value){
     char buf[32];

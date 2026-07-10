@@ -6,9 +6,9 @@
 #include <stdint.h>
 #include <pthread.h>
 
-#include "logging/logging.h"
-#include "game/game.h"
-#include "shared/shared.h"
+#include "logging.h"
+#include "game.h"
+#include "shared.h"
 
 
 

@@ -3,7 +3,7 @@
 
 #include <SDL2/SDL.h>
 
-#include "shared/shared.h"
+#include "shared.h"
 
 #define event_rate 10000 //100x a sec
 
