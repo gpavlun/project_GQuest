@@ -1,8 +1,8 @@
 #include <sys/stat.h>
 
-#include "shared/shared.h"
-#include "editor/editor.h"
-#include "logging/logging.h"
+#include "shared.h"
+#include "editor.h"
+#include "logging.h"
 
 
 void save_chunk(world_tile_t chunk){

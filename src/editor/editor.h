@@ -1,7 +1,7 @@
 #ifndef EDITOR_H
 #define EDITOR_H
 
-#include "shared/shared.h"
+#include "shared.h"
 #include <SDL2/SDL.h>
 #include <sys/stat.h>
 

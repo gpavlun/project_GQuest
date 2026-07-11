@@ -1,7 +1,7 @@
 #include <SDL2/SDL.h>
 
-#include "shared/shared.h"
-#include "editor/editor.h"
+#include "shared.h"
+#include "editor.h"
 
 int window_change(SDL_Window *window){
     int new_width;

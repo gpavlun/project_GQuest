@@ -79,14 +79,18 @@ DEPS := $(ALL_OBJS:.o=.d)
 
 LIB_DIRS := \
 	-Llibs/logging/lib \
-	-Llibs/objects/lib
+	-Llibs/objects/lib \
+	-Llibs/gcurses/lib 
 
 LIBS := \
 	-llogging \
-	-lobjects
+	-lgcurses \
+	-lobjects 
+	
 
 LOGGING_LIB := libs/logging/lib/liblogging.a
 OBJECTS_LIB := libs/objects/lib/libobjects.a
+GCURSES_LIB := libs/gcurses/lib/libgcurses.a
 
 # ───────────────────────────────────────────────────────
 # Default Target

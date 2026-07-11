@@ -2,9 +2,9 @@
 #include <sys/stat.h>
 #include <pthread.h>
 
-#include "shared/shared.h"
-#include "editor/editor.h"
-#include "logging/logging.h"
+#include "shared.h"
+#include "editor.h"
+#include "logging.h"
 
 
 #define nopts 4

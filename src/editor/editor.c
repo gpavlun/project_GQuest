@@ -7,9 +7,9 @@
 #include <string.h>
 #include <sys/stat.h>
 
-#include "shared/shared.h"
-#include "editor/editor.h"
-#include "logging/logging.h"
+#include "shared.h"
+#include "editor.h"
+#include "logging.h"
 
 boolean_t modes;
 debug_t debug;

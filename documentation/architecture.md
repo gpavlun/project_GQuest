@@ -5,14 +5,27 @@
 │   └── tree_gen.sh
 ├── first-time-startup.sh
 ├── libs
+│   ├── gcurses
+│   │   ├── demo.c
+│   │   ├── include
+│   │   │   └── gcurses.h
+│   │   ├── makefile
+│   │   └── src
+│   │       ├── gcurses.c
+│   │       └── objective.c
 │   ├── logging
 │   │   ├── include
 │   │   │   └── logging.h
+│   │   ├── makefile
 │   │   └── src
 │   │       └── logging.c
 │   └── objects
 │       ├── include
+│       │   └── objects.h
+│       ├── makefile
+│       ├── README.md
 │       └── src
+│           └── oop.c
 ├── makefile
 ├── scripts
 │   ├── build-boot.sh
@@ -46,4 +59,4 @@
     ├── _1_-1_.ck
     └── _1_1_.ck
 
-16 directories, 31 files
+19 directories, 41 files
