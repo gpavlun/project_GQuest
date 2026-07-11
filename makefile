@@ -29,8 +29,16 @@ endif
 
 WARN ?= 0
 
+LOUD ?= 0
+
 ifeq ($(WARN),1)
     WARNFLAGS := -Wall -Wextra
+else
+    WARNFLAGS :=
+endif
+
+ifeq ($(LOUD),1)
+    WARNFLAGS := -Wall -Wextra -Wpedantic -Wshadow -Wconversion -Werror
 else
     WARNFLAGS :=
 endif

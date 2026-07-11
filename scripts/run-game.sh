@@ -1,3 +1,3 @@
 #! /bin/bash
 
-x-terminal-emulator -e "./bin/game.grg" &
+exec x-terminal-emulator -e ./bin/game.grg
