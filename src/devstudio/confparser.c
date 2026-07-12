@@ -13,18 +13,20 @@ int parse_config(FILE *file, const char *app_name, launch_t *data){
 
     int found = 0;
 
+    data->name = malloc(strlen(app_name)+1);
+    strcpy(data->name,app_name);
+
     snprintf(section, sizeof(section), "<<%s>>", app_name);
 
     while(fgets(line, sizeof(line), file)){
         line[strcspn(line, "\n")] = 0;
-
         if(!strcmp(line, section)){
             found = 1;
             break;
         }
     }
 
-    if(!found) return 0;
+    if(!found) return 1;
 
 
     while(fgets(line, sizeof(line), file)){
@@ -51,5 +53,5 @@ int parse_config(FILE *file, const char *app_name, launch_t *data){
         }
     }
 
-    return 1;
+    return 0;
 }

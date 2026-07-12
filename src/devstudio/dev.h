@@ -4,7 +4,8 @@
 typedef struct launcher_data{
     char *app_path;
     char *app_term;
-    char name[16];
+    char *name;
+    char tmp_path[64];
     int running;
     int pid;
 }launch_t;

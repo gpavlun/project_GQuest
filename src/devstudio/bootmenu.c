@@ -22,33 +22,62 @@ char options[nopts][optw]={
     "build+run editor   ",
     "quit               "
 };
+int readpid(const char *path){
+    FILE *f;
+    pid_t pid;
 
+    while(1){
+        f = fopen(path, "r");
+
+        if(f){
+            if(fscanf(f, "%d", &pid)==1){
+                fclose(f);
+                return pid;
+            }
+            fclose(f);
+        }
+
+        usleep(10000);
+    }
+}
 void launch(launch_t *config){
-
+    sprintf(config->tmp_path,"./tmp/%s.pid",config->name);
     int pid = fork();
-    if(!pid){
+    if (!pid) {
         execlp(config->app_term,
             config->app_term,
             "-e",
+            "./launcher-wrapper",
+            config->tmp_path,
             config->app_path,
             NULL);
-    }
-    config->pid = pid;
 
+        exit(1);
+    }
+    config->pid = readpid(config->tmp_path);
 }
 
+void get_status(launch_t *config){
+    FILE *f;
+    if(config->tmp_path&&config->tmp_path[0]){
+        f = fopen(config->tmp_path, "r");
+        if(f){
+            config->running = 1;
+            fclose(f);
+        }else{
+            config->running = 0;
+        }
+    }else{
+        config->running = 0;
+    }
+}
 
 int handle_input(char input, char *out, int *selected, launch_t *config[2]){
     FILE *output;
     char buff[1];    
-    int status;
-    if(waitpid(config[0]->pid, &status, WNOHANG)==config[0]->pid){
-        config[0]->running = 0;
-    }
-    if(waitpid(config[1]->pid, &status, WNOHANG)==config[1]->pid){
-        config[1]->running = 0;
-    }
     
+    get_status(config[0]);
+    get_status(config[1]);
 
 
     if(input!=EOF && input!=0){
@@ -66,16 +95,16 @@ int handle_input(char input, char *out, int *selected, launch_t *config[2]){
                 if(!config[0]->running){
                     launch(config[0]);
                     strcpy(out, "launched game");
-                    config[0]->running = 1;
                 }else{
                     strcpy(out, "game is running");
                 }
             $}case('2'):{
                 *selected = 1;
                 if(config[0]->running){
-                    kill(config[0]->pid, SIGTERM);
+                    kill(config[0]->pid, SIGKILL);
+                    remove(config[0]->tmp_path);
+                    config[0]->tmp_path[0] = 0;
                     strcpy(out, "killed game");
-                    config[0]->running = 0;
                 }else{
                     strcpy(out, "game is not running");
                 }
@@ -89,7 +118,6 @@ int handle_input(char input, char *out, int *selected, launch_t *config[2]){
                     }else{
                         launch(config[0]);
                         strcpy(out, "launched game");
-                        config[0]->running = 1;
                     }
                     pclose(output);
                 }else{
@@ -100,16 +128,16 @@ int handle_input(char input, char *out, int *selected, launch_t *config[2]){
                 if(!config[1]->running){
                     launch(config[1]);
                     strcpy(out, "launched editor");
-                    config[1]->running = 1;
                 }else{
                     strcpy(out, "editor is running");
                 }
             $}case('5'):{
                 *selected = 4;
                 if(config[1]->running){
-                    kill(config[1]->pid, SIGTERM);
+                    kill(config[1]->pid, SIGKILL);
+                    remove(config[1]->tmp_path);
+                    config[1]->tmp_path[0] = 0;
                     strcpy(out, "killed editor");
-                    config[1]->running = 0;
                 }else{
                     strcpy(out, "editor is not running");
                 }
@@ -123,7 +151,6 @@ int handle_input(char input, char *out, int *selected, launch_t *config[2]){
                     }else{
                         launch(config[1]);
                         strcpy(out, "launched editor");
-                        config[1]->running = 1;
                     }
                     pclose(output);
                 }else{
@@ -192,6 +219,22 @@ void draw_display(term_w_t *terminal, char *message,  int selected){
         ui_box.r = title_box.dim.r + title_box.dim.h;
         ui_box.h = terminal->nrows - title_box.dim.h*2;
         ui_box.w = terminal->ncols-body_box.w;
+        str.r = ui_box.r + 1;
+        str.c = ui_box.c + 1;
+        str.source = "1. w and s to select options";
+        terminal->horz_strdisp(str);
+        str.r = ui_box.r + 2;
+        str.c = ui_box.c + 1;
+        str.source = "2. enter to run option";
+        terminal->horz_strdisp(str);
+        str.r = ui_box.r + 3;
+        str.c = ui_box.c + 1;
+        str.source = "3. 1-9 are hotkeys for select";
+        terminal->horz_strdisp(str);
+        str.r = ui_box.r + 4;
+        str.c = ui_box.c + 1;
+        str.source = "4. esc or q to quick exit";
+        terminal->horz_strdisp(str);
 
         terminal->draw_frame(ui_box);
 
@@ -255,9 +298,8 @@ void boot_menu(void){
     terminal.clear();
     terminal.present();
     
-    char buff [1024];
     char input = EOF;
-    char message[32];
+    char message[64];
 
     strcpy(message, "startup complete");
 
@@ -269,8 +311,10 @@ void boot_menu(void){
     config[1] = calloc(1, sizeof(launch_t));
     FILE *file = fopen("launcher.conf", "r");
     if(!file) logging.error(404, "launcher.conf not found!");
-    parse_config(file, "GAME", config[0]);
-    parse_config(file, "EDITOR", config[1]);
+    rewind(file);
+    if(parse_config(file, "GAME", config[0])) logging.error(500, "Game config malformed");
+    rewind(file);
+    if(parse_config(file, "EDITOR", config[1])) logging.error(500, "Editor config malformed");
 
     while(running){
 
@@ -290,6 +334,7 @@ void boot_menu(void){
 }
 
 int main(void){
+    system("rm ./tmp/*");
     boot_menu();
     return 0;
 }
