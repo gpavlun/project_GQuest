@@ -176,9 +176,15 @@ devstudio: $(LOGGING_LIB) $(OBJECTS_LIB) $(DEVSTUDIO_OBJS) $(SHARED_OBJS)
 	@$(ECHO) "$(CYAN)│ Building DevStudio                   │$(RESET)"
 	@$(ECHO) "$(CYAN)└──────────────────────────────────────┘$(RESET)"
 	@mkdir -p $(BIN_DIR)
+
+	@$(ECHO) "$(GREEN)[LD]$(RESET) $(BIN_DIR)/launcher-wrapper"
+	@$(CC) \
+		$(BUILD_DIR)/devstudio/launcher-wrapper.o \
+		-o $(BIN_DIR)/launcher-wrapper
+
 	@$(ECHO) "$(GREEN)[LD]$(RESET) $(BIN_DIR)/devstudio.grg"
 	@$(CC) \
-		$(DEVSTUDIO_OBJS) \
+		$(filter-out $(BUILD_DIR)/devstudio/launcher-wrapper.o,$(DEVSTUDIO_OBJS)) \
 		$(SHARED_OBJS) \
 		$(LIB_DIRS) \
 		$(LIBS) \

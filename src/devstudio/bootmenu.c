@@ -47,7 +47,7 @@ void launch(launch_t *config){
         execlp(config->app_term,
             config->app_term,
             "-e",
-            "./launcher-wrapper",
+            "./bin/launcher-wrapper",
             config->tmp_path,
             config->app_path,
             NULL);

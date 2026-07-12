@@ -2,6 +2,9 @@
 build/
 bin/
 
+# Temp files
+tmp/
+
 # Object files
 *.o
 *.d
