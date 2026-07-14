@@ -6,6 +6,7 @@
 
 #include "dev.h"
 
+
 #define LINE_SIZE 256
 int parse_config(FILE *file, const char *app_name, launch_t *data){
     char line[LINE_SIZE];

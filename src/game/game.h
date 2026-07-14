@@ -2,8 +2,7 @@
 #define GAME_H
 
 #include <SDL2/SDL.h>
-
-#include "shared.h"
+#include <gio.h>
 
 #define event_rate 10000 //100x a sec
 

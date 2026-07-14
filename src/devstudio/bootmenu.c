@@ -6,10 +6,11 @@
 #include <signal.h>
 #include <sys/wait.h>
 
-#include "shared.h"
-#include "gcurses.h"
+#include <gio.h>
+#include <gcurses.h>
+#include <logging.h>
+
 #include "dev.h"
-#include "logging.h"
 
 #define nopts 7
 #define optw 20

@@ -2,10 +2,10 @@
 #include <sys/stat.h>
 #include <pthread.h>
 
-#include "shared.h"
-#include "editor.h"
-#include "logging.h"
+#include <gio.h>
+#include <logging.h>
 
+#include "editor.h"
 
 #define nopts 4
 char options[nopts][64]={

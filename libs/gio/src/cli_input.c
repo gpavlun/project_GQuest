@@ -1,4 +1,4 @@
-#include "shared.h"
+#include <gio.h>
 
 int input_int(int *value){
     char buf[32];

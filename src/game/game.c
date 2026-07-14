@@ -6,11 +6,10 @@
 #include <stdint.h>
 #include <pthread.h>
 
-#include "logging.h"
+#include <gio.h>
+#include <logging.h>
+
 #include "game.h"
-#include "shared.h"
-
-
 
 uint8_t RUNNING;
 pthread_mutex_t origin_lock;

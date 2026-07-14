@@ -1,6 +1,6 @@
 #! /bin/bash
 echo "Project layout:" > architecture.md
-tree ../. -a -I '.git|build/*|bin/*|.gitignore|*.o|*.d|*.a' >> architecture.md
+tree ../. -a -I '.git|build/*|bin/*|.gitignore|*.o|*.d|*.a|world_data/*' >> architecture.md
 
 echo "" >> architecture.md
 echo "Lines of code by file:" >> architecture.md

@@ -1,9 +1,9 @@
 #include <sys/stat.h>
 
-#include "shared.h"
-#include "editor.h"
-#include "logging.h"
+#include <gio.h>
+#include <logging.h>
 
+#include "editor.h"
 
 void save_chunk(world_tile_t chunk){
     FILE *chunk_file;

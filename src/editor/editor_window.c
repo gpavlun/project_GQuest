@@ -1,6 +1,6 @@
 #include <SDL2/SDL.h>
 
-#include "shared.h"
+#include <gio.h>
 #include "editor.h"
 
 int window_change(SDL_Window *window){
